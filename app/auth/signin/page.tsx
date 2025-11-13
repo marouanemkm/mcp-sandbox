@@ -21,7 +21,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (status !== "loading" && session) {
-      router.push("/");
+      router.push("/dashboard");
     }
   }, [status, session, router]);
 
@@ -48,7 +48,7 @@ export default function SignIn() {
       return result;
     },
     onSuccess: () => {
-      router.push("/");
+      router.push("/dashboard");
       router.refresh();
     },
   });
@@ -59,7 +59,7 @@ export default function SignIn() {
 
   if (status === "loading") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-size-[40px_40px]">
+      <div className="flex min-h-screen items-center justify-center">
         <Card className="w-full max-w-md">
           <CardContent className="p-8 text-center">
             <div className="mb-4 inline-flex items-center justify-center rounded-base border-2 border-border bg-main p-4 shadow-shadow">
@@ -77,7 +77,7 @@ export default function SignIn() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-size-[40px_40px] p-4">
+    <div className="flex min-h-screen items-center justify-center p-4">
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>

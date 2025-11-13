@@ -1,161 +1,146 @@
-"use client";
-
-import Image from "next/image";
-import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { LogOut, User, Mail, Shield, Sparkles, ExternalLink } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { Bot, Sparkles, Shield, Zap, Code2, ArrowRight, Settings } from "lucide-react";
+import { Header } from "@/components/header";
 
 export default function Home() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status !== "loading" && !session) {
-      router.push("/auth/signin");
-    }
-  }, [status, session, router]);
-
-  if (status === "loading") {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-background bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-size-[40px_40px]">
-        <Card className="w-full max-w-md">
-          <CardContent className="p-8 text-center">
-            <div className="mb-4 inline-flex items-center justify-center rounded-base border-2 border-border bg-main p-4 shadow-shadow">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-main-foreground border-t-transparent" />
-            </div>
-            <p className="text-lg font-heading text-foreground">Chargement...</p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  if (!session) {
-    return null;
-  }
-
   return (
-    <div className="min-h-screen bg-background bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-size-[40px_40px] p-4 sm:p-8">
-      <div className="mx-auto max-w-5xl">
-        {/* Header */}
-        <header className="mb-8 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="rounded-base border-2 border-border bg-main p-3 shadow-shadow">
-              <Shield className="h-6 w-6 text-main-foreground" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-heading text-foreground">Dashboard</h1>
-              <p className="text-sm font-base text-foreground/70">Espace authentifié</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <Button onClick={() => signOut({ callbackUrl: "/auth/signin" })} variant="destructive" size="default">
-              <LogOut className="h-4 w-4" />
-              Déconnexion
-            </Button>
-          </div>
-        </header>
+    <div className="min-h-screen">
+      <Header />
 
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <Card>
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <CardTitle className="mb-2 flex items-center gap-2 text-3xl">
-                    <Sparkles className="h-8 w-8 text-main" />
-                    Bienvenue !
-                  </CardTitle>
+      <main>
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:py-20 md:py-32">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="mb-4 inline-flex rounded-base border-2 border-border bg-main p-3 shadow-shadow sm:mb-6 sm:p-4">
+              <Bot className="h-10 w-10 text-main-foreground sm:h-12 sm:w-12" />
+            </div>
+            <h1 className="mb-4 text-4xl font-heading text-foreground sm:text-5xl sm:mb-6 md:text-7xl">MCP Sandbox</h1>
+            <p className="mb-6 text-lg font-base text-foreground/70 sm:text-xl sm:mb-8 md:text-2xl">
+              Create and manage AI agents with Model Context Protocol integrations
+            </p>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+              <Button asChild size="lg" className="w-full text-base sm:w-auto sm:text-lg">
+                <Link href="/auth/signin">
+                  Get Started
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="w-full text-base sm:w-auto sm:text-lg">
+                <Link href="#features">
+                  Learn More
+                  <Sparkles className="h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" className="mx-auto max-w-7xl px-4 py-12 sm:py-20">
+          <div className="mx-auto max-w-6xl">
+            <h2 className="mb-8 text-center text-3xl font-heading text-foreground sm:mb-12 sm:text-4xl md:text-5xl">Powerful Features</h2>
+            <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <Card>
+                <CardHeader>
+                  <div className="mb-3 inline-flex rounded-base border-2 border-border bg-main p-3 shadow-shadow">
+                    <Bot className="h-8 w-8 text-main-foreground" />
+                  </div>
+                  <CardTitle className="text-2xl">AI Agent Management</CardTitle>
                   <CardDescription className="text-base">
-                    Vous êtes connecté en tant que <span className="font-heading text-main">{session.user.name || session.user.email}</span>
+                    Create, configure, and deploy AI agents with custom behaviors and personalities
                   </CardDescription>
-                </div>
-                <div className="rounded-base border-2 border-border bg-main p-4 shadow-shadow">
-                  <User className="h-12 w-12 text-main-foreground" />
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-base border-2 border-border bg-secondary-background p-4 shadow-shadow">
-                  <div className="mb-2 flex items-center gap-2">
-                    <Mail className="h-5 w-5 text-main" />
-                    <p className="text-sm font-heading uppercase tracking-wide text-foreground/70">Email</p>
+                </CardHeader>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className="mb-3 inline-flex rounded-base border-2 border-border bg-[#7A83FF] p-3 shadow-shadow">
+                    <Code2 className="h-8 w-8 text-white" />
                   </div>
-                  <p className="font-base text-lg text-foreground">{session.user.email}</p>
-                </div>
-                <div className="rounded-base border-2 border-border bg-secondary-background p-4 shadow-shadow">
-                  <div className="mb-2 flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-main" />
-                    <p className="text-sm font-heading uppercase tracking-wide text-foreground/70">User ID</p>
+                  <CardTitle className="text-2xl">MCP Integration</CardTitle>
+                  <CardDescription className="text-base">
+                    Connect Model Context Protocol servers to enhance your agents with external tools
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className="mb-3 inline-flex rounded-base border-2 border-border bg-[#FACC00] p-3 shadow-shadow">
+                    <Settings className="h-8 w-8 text-black" />
                   </div>
-                  <p className="font-mono text-lg font-base text-foreground">{session.user.id}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                  <CardTitle className="text-2xl">Custom Configurations</CardTitle>
+                  <CardDescription className="text-base">Fine-tune agent parameters, prompts, and behaviors to match your needs</CardDescription>
+                </CardHeader>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className="mb-3 inline-flex rounded-base border-2 border-border bg-[#FF4D50] p-3 shadow-shadow">
+                    <Shield className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl">Secure & Private</CardTitle>
+                  <CardDescription className="text-base">
+                    Your data and configurations are encrypted and protected with enterprise-grade security
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className="mb-3 inline-flex rounded-base border-2 border-border bg-[#00D9A5] p-3 shadow-shadow">
+                    <Zap className="h-8 w-8 text-black" />
+                  </div>
+                  <CardTitle className="text-2xl">Lightning Fast</CardTitle>
+                  <CardDescription className="text-base">
+                    Built on modern infrastructure for instant responses and real-time interactions
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className="mb-3 inline-flex rounded-base border-2 border-border bg-[#9B59B6] p-3 shadow-shadow">
+                    <Sparkles className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl">Easy to Use</CardTitle>
+                  <CardDescription className="text-base">
+                    Intuitive interface with powerful features - no coding required to get started
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:py-20">
+          <div className="mx-auto max-w-4xl">
+            <Card>
+              <CardHeader className="text-center">
+                <CardTitle className="mb-3 text-2xl sm:mb-4 sm:text-4xl">Ready to get started?</CardTitle>
+                <CardDescription className="text-base sm:text-lg">Create your account and start building AI agents in minutes</CardDescription>
+              </CardHeader>
+              <CardContent className="flex justify-center">
+                <Button asChild size="lg" className="w-full text-base sm:w-auto sm:text-lg">
+                  <Link href="/auth/signin">
+                    <Bot className="h-5 w-5" />
+                    Start Building Now
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t-2 border-border bg-secondary-background py-8">
+        <div className="mx-auto max-w-7xl px-4 text-center">
+          <p className="font-base text-foreground/70">
+            Built with <span className="text-main">Next.js</span>, <span className="text-main">NextAuth</span>, and{" "}
+            <span className="text-main">Neobrutalism</span>
+          </p>
         </div>
-
-        {/* Info Cards */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <Card>
-            <CardHeader>
-              <div className="mb-3 inline-flex rounded-base border-2 border-border bg-main p-3 shadow-shadow">
-                <Shield className="h-6 w-6 text-main-foreground" />
-              </div>
-              <CardTitle className="text-xl">NextAuth.js</CardTitle>
-              <CardDescription>Authentification sécurisée avec le provider Credentials</CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <div className="mb-3 inline-flex rounded-base border-2 border-border bg-[#FACC00] p-3 shadow-shadow">
-                <Sparkles className="h-6 w-6 text-black" />
-              </div>
-              <CardTitle className="text-xl">Neobrutalism</CardTitle>
-              <CardDescription>Design moderne avec des bordures épaisses et des ombres audacieuses</CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <div className="mb-3 inline-flex rounded-base border-2 border-border bg-[#7A83FF] p-3 shadow-shadow">
-                <Image src="/next.svg" alt="Next.js" width={24} height={24} className="invert" />
-              </div>
-              <CardTitle className="text-xl">Next.js 16</CardTitle>
-              <CardDescription>Framework React avec App Router et Server Components</CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-
-        {/* Footer Links */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <Button variant="outline" size="sm" asChild>
-            <a href="https://next-auth.js.org/" target="_blank" rel="noopener noreferrer">
-              NextAuth Docs
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </Button>
-          <Button variant="outline" size="sm" asChild>
-            <a href="https://www.neobrutalism.dev/" target="_blank" rel="noopener noreferrer">
-              Neobrutalism
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </Button>
-          <Button variant="outline" size="sm" asChild>
-            <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
-              Next.js Docs
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </Button>
-        </div>
-      </div>
+      </footer>
     </div>
   );
 }

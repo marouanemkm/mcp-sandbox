@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MCP Sandbox
 
-## Getting Started
+An AI agent platform built with Next.js, featuring a Neobrutalism design system and secure authentication. This project provides a foundation for creating and managing AI agents with MCP (Model Context Protocol) configurations.
 
-First, run the development server:
+## 🎯 Project Objective
+
+MCP Sandbox is designed to be a modern platform for AI agent management, offering:
+
+- **User Authentication**: Secure email/password authentication with NextAuth.js and PostgreSQL
+- **AI Agent Management**: Dashboard for creating and configuring AI agents
+- **MCP Configuration**: Support for Model Context Protocol integration
+- **Modern UI**: Neobrutalism design system with dark mode support
+- **Responsive Design**: Mobile-first approach ensuring optimal experience across all devices
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- [Bun](https://bun.sh) installed
+- Docker and Docker Compose for PostgreSQL
+
+### Installation
+
+1. **Clone the repository**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+git clone <repository-url>
+cd airtable-chatbot
+```
+
+2. **Install dependencies**
+
+```bash
+bun install
+```
+
+3. **Set up environment variables**
+
+Create a `.env.local` file:
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5555/airtable_chatbot?schema=public"
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-super-secret-key-change-this-in-production
+```
+
+4. **Start PostgreSQL**
+
+```bash
+docker-compose up -d
+```
+
+5. **Initialize the database**
+
+```bash
+bun run db:push
+bun run db:seed
+```
+
+6. **Run the development server**
+
+```bash
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Test Credentials
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Email**: `admin@example.com`
+- **Password**: `password123`
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: Next.js 16.0.3 (App Router)
+- **Language**: TypeScript
+- **Authentication**: NextAuth.js 4.24.13
+- **Database**: PostgreSQL 16 + Prisma 6.19.0
+- **Forms**: React Hook Form 7.66.0 + Zod 4.1.12
+- **Data Fetching**: TanStack Query 5.90.8
+- **UI Components**: shadcn/ui (custom Neobrutalism theme)
+- **Styling**: Tailwind CSS 4
+- **Icons**: Lucide React
+- **Package Manager**: Bun
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Commands
 
-## Deploy on Vercel
+```bash
+# Development
+bun dev                    # Start dev server
+bun run build             # Build for production
+bun start                 # Start production server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Database
+bun run db:push           # Push schema to database
+bun run db:seed           # Seed test data
+bun run db:studio         # Open Prisma Studio
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Docker
+docker-compose up -d      # Start PostgreSQL
+docker-compose down       # Stop PostgreSQL
+docker-compose logs -f    # View logs
+```
+
+## 📝 Best Practices
+
+1. **Server Components by default** - Add 'use client' only when needed
+2. **Validate with Zod** - All user input must be validated
+3. **Type-safe queries** - Use Prisma's generated types
+4. **Error boundaries** - Handle errors gracefully
+5. **Accessibility** - Use semantic HTML and ARIA labels
+
+## 📄 License
+
+MIT License - feel free to use this project as a foundation for your own applications.
