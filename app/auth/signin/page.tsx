@@ -116,7 +116,12 @@ export default function SignIn() {
                     disabled={loginMutation.isPending}
                   />
                 </div>
-                {errors.email && <p className="text-sm text-[#FF4D50]">{errors.email.message}</p>}
+                {errors.email && (
+                  <div className="flex items-start gap-2 rounded-base border-2 border-[#FF4D50] bg-[#FF4D50]/10 p-2 shadow-[2px_2px_0px_0px_#FF4D50]">
+                    <AlertCircle className="h-4 w-4 mt-0.5 shrink-0 text-[#FF4D50]" />
+                    <p className="text-sm font-base text-[#FF4D50]">{errors.email.message}</p>
+                  </div>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -140,13 +145,21 @@ export default function SignIn() {
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
-                {errors.password && <p className="text-sm text-[#FF4D50]">{errors.password.message}</p>}
+                {errors.password && (
+                  <div className="flex items-start gap-2 rounded-base border-2 border-[#FF4D50] bg-[#FF4D50]/10 p-2 shadow-[2px_2px_0px_0px_#FF4D50]">
+                    <AlertCircle className="h-4 w-4 mt-0.5 shrink-0 text-[#FF4D50]" />
+                    <p className="text-sm font-base text-[#FF4D50]">{errors.password.message}</p>
+                  </div>
+                )}
               </div>
 
               {loginMutation.isError && (
-                <div className="flex items-start gap-3 rounded-base border-2 border-[#FF4D50] bg-[#FF4D50]/10 p-3 text-sm font-base">
+                <div className="flex items-start gap-3 rounded-base border-2 border-[#FF4D50] bg-[#FF4D50]/10 p-3.5 shadow-[4px_4px_0px_0px_#FF4D50]">
                   <AlertCircle className="h-5 w-5 mt-0.5 shrink-0 text-[#FF4D50]" />
-                  <span className="text-foreground">{loginMutation.error?.message || "Une erreur s'est produite"}</span>
+                  <div>
+                    <p className="text-sm font-heading text-[#FF4D50] mb-0.5">Erreur de connexion</p>
+                    <p className="text-sm font-base text-foreground/80">{loginMutation.error?.message || "Une erreur s'est produite"}</p>
+                  </div>
                 </div>
               )}
             </CardContent>

@@ -4,7 +4,6 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 
-// Configuration NextAuth
 const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -19,7 +18,6 @@ const handler = NextAuth({
           return null;
         }
 
-        // Recherche l'utilisateur dans la base de données
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email,
