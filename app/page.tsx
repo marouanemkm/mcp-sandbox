@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { LogOut, User, Mail, Shield, Sparkles, ExternalLink } from "lucide-react";
@@ -11,6 +12,12 @@ import { ThemeToggle } from "@/components/theme-toggle";
 export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  useEffect(() => {
+    if (status !== "loading" && !session) {
+      router.push("/auth/signin");
+    }
+  }, [status, session, router]);
 
   if (status === "loading") {
     return (
@@ -28,7 +35,6 @@ export default function Home() {
   }
 
   if (!session) {
-    router.push("/auth/signin");
     return null;
   }
 
@@ -63,7 +69,7 @@ export default function Home() {
                 <div className="flex-1">
                   <CardTitle className="mb-2 flex items-center gap-2 text-3xl">
                     <Sparkles className="h-8 w-8 text-main" />
-                    Bienvenue de retour!
+                    Bienvenue !
                   </CardTitle>
                   <CardDescription className="text-base">
                     Vous êtes connecté en tant que <span className="font-heading text-main">{session.user.name || session.user.email}</span>

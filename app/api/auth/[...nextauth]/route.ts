@@ -1,9 +1,12 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
+import { prisma } from "@/lib/prisma";
 
 // Configuration NextAuth
 const handler = NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -16,21 +19,14 @@ const handler = NextAuth({
           return null;
         }
 
-        // TODO: Remplacer par votre logique de vérification d'utilisateur
-        // Exemple avec des utilisateurs en dur (à remplacer par une DB)
-        const users = [
-          {
-            id: "1",
-            name: "Admin User",
-            email: "admin@example.com",
-            // Password: "password123" (hashé)
-            password: "$2a$10$XQJZs5pzSXNfPq0LxLvd4O4Yv.Qv5qJ5QZZ4xYJ5xJQ5xJQ5xJQ5x",
+        // Recherche l'utilisateur dans la base de données
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
           },
-        ];
+        });
 
-        const user = users.find((u) => u.email === credentials.email);
-
-        if (!user) {
+        if (!user || !user.password) {
           return null;
         }
 
