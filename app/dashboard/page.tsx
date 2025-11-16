@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Mail, Shield, Sparkles, Bot } from "lucide-react";
 import { Header } from "@/components/header";
 
@@ -102,12 +102,12 @@ export default function DashboardPage() {
                 <CardTitle className="text-xl">AI Agents</CardTitle>
                 <CardDescription>Create and manage your AI agents with custom configurations</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardFooter>
                 <Button className="w-full" size="lg">
                   <Bot className="h-4 w-4" />
                   Create Agent
                 </Button>
-              </CardContent>
+              </CardFooter>
             </Card>
 
             <Card>
@@ -118,12 +118,12 @@ export default function DashboardPage() {
                 <CardTitle className="text-xl">MCP Integrations</CardTitle>
                 <CardDescription>Connect Model Context Protocol servers to your agents</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardFooter>
                 <Button className="w-full" size="lg" variant="outline">
                   <Shield className="h-4 w-4" />
                   Add MCP Config
                 </Button>
-              </CardContent>
+              </CardFooter>
             </Card>
 
             <Card>
@@ -134,12 +134,12 @@ export default function DashboardPage() {
                 <CardTitle className="text-xl">Settings</CardTitle>
                 <CardDescription>Configure your account and preferences</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardFooter>
                 <Button className="w-full" size="lg" variant="secondary">
                   <User className="h-4 w-4" />
                   View Settings
                 </Button>
-              </CardContent>
+              </CardFooter>
             </Card>
           </div>
         </div>
