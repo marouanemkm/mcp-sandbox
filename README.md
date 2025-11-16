@@ -36,7 +36,7 @@ bun install
 
 3. **Set up environment variables**
 
-Create a `.env.local` file:
+Create a `.env` file:
 
 ```env
 DATABASE_URL="postgresql://postgres:postgres@localhost:5555/airtable_chatbot?schema=public"
