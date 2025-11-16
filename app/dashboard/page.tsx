@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Mail, Shield, Sparkles, Bot } from "lucide-react";
-import { Header } from "@/components/header";
+import { DashboardSidebar } from "@/components/dashboard-sidebar";
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
@@ -38,9 +38,9 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main className="p-4 sm:p-8">
+    <div className="flex min-h-screen">
+      <DashboardSidebar />
+      <main className="flex-1 p-4 pt-20 sm:p-8 md:ml-16 md:pt-8">
         <div className="mx-auto max-w-5xl">
           <div className="mb-8">
             <div className="flex items-center gap-3">
